@@ -1,0 +1,37 @@
+### 1. Executive Summary
+
+A comprehensive data reconciliation of Mamaearth's order and revenue metrics shows that data hygiene directly impacts top-line figures and operational planning. Cleansing raw records reduced total orders from 180 to 175, adjusting recognized revenue downward by -2501.9 (from a raw SQL figure of 99860.2 to a cleaned Python figure of 97358.3). 
+
+Operational performance reveals substantial friction in Cash on Delivery (COD) transactions, particularly within Tier 2 cities, where return rates exceed half of all orders. Furthermore, after controlling for quantity outliers, the true peak revenue month shifts from 2026-01 to 2026-03. Management must calibrate demand forecasting and payment policies around these validated metrics rather than uncleaned baselines.
+
+---
+
+### 2. Key Findings
+
+* **Data-Quality Corrections & Revenue Impact:**
+  * Order data was sanitized by removing 5 duplicate orders, bringing raw orders down from 180 to 175 clean orders.
+  * Data gaps were addressed by imputing 12 missing discount values and 15 missing rating values using the rating median of 3.0.
+  * These data-quality improvements adjusted top-line revenue from 99860.2 (raw SQL) to 97358.3 (cleaned Python), eliminating an overstatement difference of -2501.9.
+
+* **Return-Risk Patterns:**
+  * COD is the payment method with the highest return rate across the business at 44.44%.
+  * The highest-risk customer segment identified is COD orders placed in City Tier 2, where return rates reach 54.55%.
+
+* **Outliers and Corrected Seasonality:**
+  * The dataset contained 2 quantity outliers exceeding the statistical upper bound of 3.5.
+  * These order spikes distorted seasonal trends: when including outliers, peak revenue appeared in 2026-01; removing outliers revealed the actual underlying peak revenue month to be 2026-03.
+
+---
+
+### 3. Business Recommendations
+
+* **Mitigate Tier 2 COD Exposure:** Re-evaluate COD policies specifically for City Tier 2 markets, given the 54.55% return rate. Implement interventions such as pre-shipment order confirmation, delivery verification, or incentives to convert COD customers to alternative payment methods to combat the 44.44% overall COD return baseline.
+* **Base Operational Planning on Clean Demand Peaks:** Shift inventory, supply chain, and marketing resource allocations to align with the true peak revenue period of 2026-03 rather than the outlier-skewed 2026-01.
+* **Standardize Cleansed Data in Financial Reporting:** Formally adopt post-cleaning deduplication and imputation protocols across reporting pipelines to avoid reporting distorted revenue baselines (such as the -2501.9 discrepancy noted).
+
+---
+
+### 4. Caveats
+
+* **Correlation vs. Causation:** While there is a strong relationship between COD orders in Tier 2 cities and elevated return rates (54.55%), correlation does not imply causation. The data identifies this segment as high-risk, but it does not specify the direct drivers causing the returns (e.g., product defects, delivery delays, or buyer remorse).
+* **Imputation Assumptions:** A total of 15 rating entries were imputed using the median value of 3.0, and 12 missing discounts were filled, which represents an operational estimate rather than customer-submitted feedback.
